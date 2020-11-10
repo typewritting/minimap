@@ -1,0 +1,57 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+
+<!--地图容器-->
+<!--longitude及latitude为设置为调转到指定地址位置，默认不显示-->
+<!-- <map id="myMap"
+    markers="{{markers}}"
+    style="width:100%;height:300px;"
+    longitude="{{poi.longitude}}"
+    latitude="{{poi.latitude}}"
+    scale='1' show-location>
+</map> -->
+<!--起点form表单-->
+<form bindsubmit="formSubmit1">
+    <!--地址描述输入框,示例：北京市海淀区彩和坊路海淀西大街74号-->
+    <input style="border:1px solid #000;" name="geocoder"></input>
+    <input style="border:1px solid #000;" name="geocoder2"></input>
+    <!--提交表单数据-->
+    <button form-type="submit">开始导航！滴滴滴</button>
+</form>
+<!--地址描述经纬度展示-->
+<view>地址纬度：{{poi.latitude}}</view>
+<view>地址经度：{{poi.longitude}}</view>
+
+
+
+<!--路线规划-->
+<!--地图容器-->
+<map
+id="myMap"
+style="width: 100%; height: 300px;"
+longitude="{{longitude}}" latitude="{{latitude}}"
+scale='1'
+polyline="{{polyline}}"
+show-location
+>
+</map>
+<form bindsubmit="formSubmit">
+    <!--输入起点和目的地经纬度坐标，格式为string格式-->
+    <!--起点输入框,同终点，不填默认当前位置-->
+    <label>起点坐标：<input style="border:1px solid #000;" name="start"></input></label>
+    <!--终点输入框,例：39.984060,116.307520-->
+    <label>终点坐标：<input style="border:1px solid #000;" name="dest"></input></label> 
+    <!--提交表单数据-->
+    <button form-type="submit">路线规划</button>
+</form>
